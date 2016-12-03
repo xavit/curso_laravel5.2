@@ -18,7 +18,6 @@ class CreatePersonasTable extends Migration
             $table->string('name', 150);
             $table->string('last_name', 150);
             $table->integer('ci');
-
             $table->timestamps();
         });
     }
