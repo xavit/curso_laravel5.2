@@ -15,7 +15,13 @@ class CreateTelefonosTable extends Migration
     {
         Schema::create('telefonos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('numero', 50);            
+            $table->integer('persona_id')->unsigned();//campo de la relacion con personas
+            
             $table->timestamps();
+
+            $table->foreign('persona_id')->references('id')->on('personas')->onDelete('cascade');
+
         });
     }
 
