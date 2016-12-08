@@ -290,20 +290,20 @@
         },
         {
             "name": "jeremeamia/SuperClosure",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeremeamia/super_closure.git",
-                "reference": "29a88be2a4846d27c1613aed0c9071dfad7b5938"
+                "reference": "443c3df3207f176a1b41576ee2a66968a507b3db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeremeamia/super_closure/zipball/29a88be2a4846d27c1613aed0c9071dfad7b5938",
-                "reference": "29a88be2a4846d27c1613aed0c9071dfad7b5938",
+                "url": "https://api.github.com/repos/jeremeamia/super_closure/zipball/443c3df3207f176a1b41576ee2a66968a507b3db",
+                "reference": "443c3df3207f176a1b41576ee2a66968a507b3db",
                 "shasum": ""
             },
             "require": {
-                "nikic/php-parser": "^1.2|^2.0",
+                "nikic/php-parser": "^1.2|^2.0|^3.0",
                 "php": ">=5.4",
                 "symfony/polyfill-php56": "^1.0"
             },
@@ -313,7 +313,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -344,7 +344,7 @@
                 "serialize",
                 "tokenizer"
             ],
-            "time": "2015-12-05 17:17:57"
+            "time": "2016-12-07 09:37:55"
         },
         {
             "name": "laravel/framework",
@@ -1911,16 +1911,16 @@
         },
         {
             "name": "yajra/laravel-oci8",
-            "version": "v5.3.6",
+            "version": "v5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-oci8.git",
-                "reference": "984bd909be90b8cc1256d3a4508ec333e0208f05"
+                "reference": "32235e266b6f711ec685671aa7d3f14cee818cb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/984bd909be90b8cc1256d3a4508ec333e0208f05",
-                "reference": "984bd909be90b8cc1256d3a4508ec333e0208f05",
+                "url": "https://api.github.com/repos/yajra/laravel-oci8/zipball/32235e266b6f711ec685671aa7d3f14cee818cb8",
+                "reference": "32235e266b6f711ec685671aa7d3f14cee818cb8",
                 "shasum": ""
             },
             "require": {
@@ -1962,7 +1962,7 @@
                 "oracle",
                 "pdo_oci"
             ],
-            "time": "2016-11-08 00:42:50"
+            "time": "2016-12-07 06:16:05"
         },
         {
             "name": "yajra/laravel-pdo-via-oci8",

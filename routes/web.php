@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Parametro Requerido
+Route::get('/agenda/{name}/apellido/{lastname}', 'PersonaController@index');
+//Parametro Opcional
+Route::get('user/{name?}', function ($name = null) {
+    return $name;
+});
