@@ -21,3 +21,5 @@ Route::get('/agenda/{name}/apellido/{lastname}', 'PersonaController@index');
 Route::get('user/{name?}', function ($name = null) {
     return $name;
 });
+
+Route::get('/personas/listado', 'PersonaController@index');

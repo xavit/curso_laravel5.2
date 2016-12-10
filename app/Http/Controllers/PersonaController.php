@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use App\Persona;
 
 class PersonaController extends Controller
 {
@@ -11,9 +13,21 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($name, $lastname)
+    public function index()
     {
-    	echo 'Tu nombre es: '.$name.' y tu apellido es: '.$lastname ;
+
+    	//echo 'Tu nombre es: '.$name.' y tu apellido es: '.$lastname ;
+
+        $data = DB::table('personas')                      
+                 ->orderBy('name')->get();//TODOS    
+             //dd($result);
+             //return response()->json([ 'data' => $result ]);//1:OK; 0:ERROR; 
+        //$data = Persona::all()->get();
+        //dd($data);
+        
+        return view('agenda.personas', 
+            ['personas' => $data]
+        );
     }
 
     /**
