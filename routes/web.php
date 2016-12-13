@@ -23,3 +23,4 @@ Route::get('user/{name?}', function ($name = null) {
 });
 
 Route::get('/personas/listado', 'PersonaController@index');
+Route::get('/personas/formulario', 'PersonaForm@index');

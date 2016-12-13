@@ -13,7 +13,8 @@ class Persona extends Model
     */
    	protected $table = 'personas';//nombre de la tabla
    	protected $primaryKey = 'id';//campo id_primario de la tabla
-   	//protected $dateFormat = 'dd/mm/YY';//para fechas
+   	protected $dateFormat = 'dd/mm/YY';//para fechas
+    protected $dates = ['cumple'];
    	//public $timestamps = false;
 
    	/**
