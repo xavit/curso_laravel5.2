@@ -90,12 +90,12 @@
             <td>{{ $persona->last_name }}</td>
             <td>{{ date('d-M-Y', strtotime($persona->cumple)) }}</td>
             <td>
-              <button class="btn btn-xs btn-success" type="button" onclick="editar($(this))" codigo="{{ $persona->id }}">
+              <a class="btn btn-xs btn-success" type="button" href="{{url('personas/formulario').'/?id='.$persona->id }}" >
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"> Editar</span>
-              </button>
-              <button class="btn btn-xs btn-danger" type="button" onclick="borrar($(this))" codigo="{{ $persona->id }}">  
+              </a>
+              <a class="btn btn-xs btn-danger btnDelete" type="button" code="{{ $persona->id }} " >  
                 <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"> Borrar</span>            
-              </button>
+              </a>
             </td>
           </tr>
           @endforeach
@@ -113,11 +113,40 @@
 
 @section('javascripts')
 <script>
-	var editar = function(objeto){
-    var id= objeto.attr('codigo');
-    console.log("codigo: ", id);
-    window.location.replace("{{ url('personas/formulario') }}" + '/?id=' + id);
+	var btnDelete = $(".btnDelete");
 
+  var deleteElement = function(id){
+    if(confirm("Esta seguro de Eliminar elemento?")){
+      $.ajax({
+        type: "GET",
+        cache: false,
+        dataType: "html",
+        url: "{{ url('/personas/') }}/"+id,
+        // data: form.serialize(),
+        beforeSend: function(xhr)
+        {
+          //TODO Activar Spinner
+        },
+        success: function(dataResult)
+        {                                           
+          console.log(dataResult);
+          if(dataResult){
+            location.reload();            
+          }
+        },
+        error: function(xhr, ajaxOptions, thrownError)
+        {
+          alert(xhr.status);
+          alert(thrownError);          
+        }
+      });
+
+    }
   }
+  btnDelete.on("click", function(e){
+    var id = $(this).attr("code");
+    console.log(id);
+    deleteElement(id);
+  });
 </script>
 @endsection

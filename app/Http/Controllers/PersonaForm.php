@@ -21,8 +21,8 @@ class PersonaForm extends Controller
         if( (isset($id) && $id!="") ){
             $persona = DB::table('personas')          
                 ->where('id', '=', $id)
-                ->get();
-            dd($persona);
+                ->first();
+            //dd($persona);
         }        
         return view('agenda.formPersona', [ 'persona' => $persona ]);      
     }
@@ -90,6 +90,10 @@ class PersonaForm extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo $del = DB::table('personas')->where('id', $id)->delete();
+        //dd($del);
+        // ->delete();    
+        // echo $deleted = DB::delete('delete from personas')->where('id', $id);
+
     }
 }

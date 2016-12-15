@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //Parametro Requerido
 Route::get('/agenda/{name}/apellido/{lastname}', 'PersonaController@index');
@@ -22,5 +22,6 @@ Route::get('user/{name?}', function ($name = null) {
     return $name;
 });
 
-Route::get('/personas/listado', 'PersonaController@index');
+Route::get('/', 'PersonaController@index');
 Route::get('/personas/formulario', 'PersonaForm@index');
+Route::get('/personas/{id}', 'PersonaForm@destroy');

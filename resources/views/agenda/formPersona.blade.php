@@ -41,14 +41,33 @@
 </nav>
 <div role="main" class="container theme-showcase">
 
-
+<br><br>
 
   <div class="page-header">
     <h1>Gestión de Personas</h1>
   </div>
   
   <div class="row">
-    <div class="col-md-12">      
+    <div class="col-md-12">
+      <form>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" placeholder="Nombre..." id="name" value="{{ $persona->name or '' }}" class="form-control">          
+        </div>
+        <div class="form-group">
+          <label for="last_name">Apellido</label>
+          <input type="text" placeholder="Apelli..." id="last_name" class="form-control" value="{{ $persona->last_name or '' }}">          
+        </div>
+        <div class="form-group">
+          <label for="ci">Cédula de identidad</label>
+          <input type="number" placeholder="1234567" id="ci" class="form-control" value="{{ $persona->ci or '0000000' }}">          
+        </d1234567<div class="form-group">
+          <label for="cumple">Fecha de Navimiento</label>
+          <input type="date" placeholder="dd/mm/yyyy" id="cumple" class="form-control" value="{{ date('d-M-Y', strtotime($persona->cumple)) }}">
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Guardar</button>
+      </form>
     </div>    
   </div>    
 
@@ -57,6 +76,6 @@
 
 @section('javascripts')
 <script>
-	
+
 </script>
 @endsection
