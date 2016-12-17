@@ -71,7 +71,10 @@
   </div>
   
   <div class="row">
+
     <div class="col-md-12">
+      <a id="btnNuevo" class="btn btn-primary" href="{{url('personas/formulario').'/?id=0'  }}" >Nuevo</a>
+      <p></p>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -113,7 +116,7 @@
 
 @section('javascripts')
 <script>
-	var btnDelete = $(".btnDelete");
+	var btnDelete = $(".btnDelete");  
 
   var deleteElement = function(id){
     if(confirm("Esta seguro de Eliminar elemento?")){
@@ -143,10 +146,13 @@
 
     }
   }
+
+  /*Event Handler*/
   btnDelete.on("click", function(e){
     var id = $(this).attr("code");
     console.log(id);
     deleteElement(id);
   });
+
 </script>
 @endsection

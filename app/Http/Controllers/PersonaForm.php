@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Persona;
+use Carbon\Carbon;
 
 class PersonaForm extends Controller
 {
@@ -16,15 +17,19 @@ class PersonaForm extends Controller
     public function index(Request $request)
     {
         $id = $request->input('id');
-        
         $persona= [];
-        if( (isset($id) && $id!="") ){
-            $persona = DB::table('personas')          
-                ->where('id', '=', $id)
-                ->first();
-            //dd($persona);
+
+        if($id!=0)
+        {
+            
+            if( (isset($id) && $id!="") ){
+                $persona = DB::table('personas')          
+                    ->where('id', '=', $id)
+                    ->first();
+                //dd($persona);
+            }                 
         }        
-        return view('agenda.formPersona', [ 'persona' => $persona ]);      
+        return view('agenda.formPersona', [ 'persona' => $persona ]);         
     }
 
     /**
@@ -45,7 +50,35 @@ class PersonaForm extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->input('id');
+        
+        if( $id != "" ){//UPDATE
+
+          $dominio = Persona::where("id", $id)            
+            ->update([
+              'name' => $request->name,
+              'last_name' => $request->last_name,
+              'ci' => $request->ci,
+              //'cumple' => date('Y-m-d', strtotime($request->cumple)),
+              'cumple' => Carbon\Carbon::createFromFormat('Y-m-d', $request->cumple),
+              'apodo' => $request->apodo
+                
+            ]);              
+            
+          return response()->json([ 'success' => 1, 'message' => "<strong>Excelente!</strong> Datos Actualizados!" ]);//1:OK; 0:ERROR; 
+        } else {//INSERT 
+          $persona = new Persona;         
+          
+          $persona->name = $request->name;
+          $persona->last_name = $request->last_name;
+          $persona->ci = $request->ci;
+          $persona->cumple = date('Y-m-d', strtotime($request->cumple));
+          $persona->apodo = $request->apodo;
+          
+          $persona->save();
+
+          return response()->json([ 'success' => 1, 'message' => "<strong>Excelente!</strong> Datos Guardados!" ]);//1:OK; 0:ERROR; 
+        }
     }
 
     /**

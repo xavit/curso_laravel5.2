@@ -25,3 +25,4 @@ Route::get('user/{name?}', function ($name = null) {
 Route::get('/', 'PersonaController@index');
 Route::get('/personas/formulario', 'PersonaForm@index');
 Route::get('/personas/{id}', 'PersonaForm@destroy');
+Route::post('/personas/guardar', 'PersonaForm@store');

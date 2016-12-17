@@ -50,23 +50,29 @@
   <div class="row">
     <div class="col-md-12">
       <form>
+        {{ csrf_field() }}
+        <input type="hidden" id="id" name="id" value="{{ $persona->id or '' }}">
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input type="text" placeholder="Nombre..." id="name" value="{{ $persona->name or '' }}" class="form-control">          
+          <input type="text" placeholder="Nombre..." id="name" name="name" value="{{ $persona->name or '' }}" class="form-control">          
         </div>
         <div class="form-group">
           <label for="last_name">Apellido</label>
-          <input type="text" placeholder="Apelli..." id="last_name" class="form-control" value="{{ $persona->last_name or '' }}">          
+          <input type="text" placeholder="Apellido..." id="last_name" name="last_name" class="form-control" value="{{ $persona->last_name or '' }}">          
+        </div>
+        <div class="form-group">
+          <label for="apodo">Apodo</label>
+          <input type="text" placeholder="Apodo..." id="apodo" name="apodo" class="form-control" value="{{ $persona->apodo or '' }}">          
         </div>
         <div class="form-group">
           <label for="ci">Cédula de identidad</label>
-          <input type="number" placeholder="1234567" id="ci" class="form-control" value="{{ $persona->ci or '0000000' }}">          
+          <input type="number" placeholder="1234567" id="ci" name="ci" class="form-control" value="{{ $persona->ci or '0000000' }}">          
         </d1234567<div class="form-group">
           <label for="cumple">Fecha de Navimiento</label>
-          <input type="date" placeholder="dd/mm/yyyy" id="cumple" class="form-control" value="{{ date('d-M-Y', strtotime($persona->cumple)) }}">
+          <input type="date" placeholder="dd/mm/yyyy" id="cumple" name="cumple" class="form-control" value="{{ isset($persona->cumple) ? date('d-M-Y', strtotime($persona->cumple)) : ''   }}">
         </div>
         
-        <button class="btn btn-primary" type="submit">Guardar</button>
+        <button class="btn btn-primary btnGuardarPersona" type="button">Guardar</button>
       </form>
     </div>    
   </div>    
@@ -76,6 +82,38 @@
 
 @section('javascripts')
 <script>
+var btnGuardarPersona = $(".btnGuardarPersona");
+var form = $("form");
 
+var guardar= function(){
+  $.ajax({
+    type: "POST",
+    cache: false,
+    dataType: "json",
+    url: "{{ url('/personas/guardar') }}",
+    data: form.serialize(),
+    beforeSend: function(xhr)
+    {
+      //TODO Activar Spinner
+    },
+    success: function(dataResult)
+    {                                           
+      console.log(dataResult);
+      // if(dataResult){
+      //   location.reload();            
+      // }
+    },
+    error: function(xhr, ajaxOptions, thrownError)
+    {
+      alert(xhr.status);
+      alert(thrownError);          
+    }
+  });
+}
+
+/*Event Handler*/
+btnGuardarPersona.on("click", function(){
+  guardar();
+});
 </script>
 @endsection
