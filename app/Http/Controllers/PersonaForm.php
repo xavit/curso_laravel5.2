@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Persona;
-use Carbon\Carbon;
 
 class PersonaForm extends Controller
 {
@@ -53,16 +52,13 @@ class PersonaForm extends Controller
         $id = $request->input('id');
         
         if( $id != "" ){//UPDATE
-
           $dominio = Persona::where("id", $id)            
             ->update([
               'name' => $request->name,
               'last_name' => $request->last_name,
               'ci' => $request->ci,
-              //'cumple' => date('Y-m-d', strtotime($request->cumple)),
-              'cumple' => Carbon\Carbon::createFromFormat('Y-m-d', $request->cumple),
+              'cumple' => date('Y-m-d', strtotime($request->cumple)),
               'apodo' => $request->apodo
-                
             ]);              
             
           return response()->json([ 'success' => 1, 'message' => "<strong>Excelente!</strong> Datos Actualizados!" ]);//1:OK; 0:ERROR; 

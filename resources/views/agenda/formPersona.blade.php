@@ -49,30 +49,41 @@
   
   <div class="row">
     <div class="col-md-12">
-      <form>
+      <form data-toggle="validator" role="form">
         {{ csrf_field() }}
         <input type="hidden" id="id" name="id" value="{{ $persona->id or '' }}">
         <div class="form-group">
-          <label for="name">Nombre</label>
-          <input type="text" placeholder="Nombre..." id="name" name="name" value="{{ $persona->name or '' }}" class="form-control">          
+          <label for="name" class="control-label">Nombre</label>
+          <input type="text" placeholder="Nombre..." id="name" name="name" value="{{ $persona->name or '' }}" class="form-control" required> 
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>         
         </div>
         <div class="form-group">
-          <label for="last_name">Apellido</label>
-          <input type="text" placeholder="Apellido..." id="last_name" name="last_name" class="form-control" value="{{ $persona->last_name or '' }}">          
+          <label for="last_name"  class="control-label">Apellido</label>
+          <input type="text" placeholder="Apellido..." id="last_name" name="last_name" class="form-control" value="{{ $persona->last_name or '' }}" required>          
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>         
         </div>
         <div class="form-group">
-          <label for="apodo">Apodo</label>
-          <input type="text" placeholder="Apodo..." id="apodo" name="apodo" class="form-control" value="{{ $persona->apodo or '' }}">          
+          <label for="apodo" class="control-label">Apodo</label>
+          <input type="text" placeholder="Apodo..." id="apodo" name="apodo" class="form-control" value="{{ $persona->apodo or '' }}" required>       
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>            
         </div>
         <div class="form-group">
-          <label for="ci">Cédula de identidad</label>
-          <input type="number" placeholder="1234567" id="ci" name="ci" class="form-control" value="{{ $persona->ci or '0000000' }}">          
-        </d1234567<div class="form-group">
-          <label for="cumple">Fecha de Navimiento</label>
-          <input type="date" placeholder="dd/mm/yyyy" id="cumple" name="cumple" class="form-control" value="{{ isset($persona->cumple) ? date('d-M-Y', strtotime($persona->cumple)) : ''   }}">
+          <label for="ci" class="control-label">Cédula de identidad</label>
+          <input type="number" placeholder="1234567" id="ci" name="ci" class="form-control" value="{{ $persona->ci or '1' }}" step="1" min="1" required>  
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div class="help-block with-errors">Hey look, this one has feedback icons!</div>         
+        </div>        
+        <div class="form-group">
+          <label for="cumple" class="control-label">Fecha de Nacimiento</label>
+          <input type="date" placeholder="dd-mm-yyyy" id="cumple" name="cumple" class="form-control" value="{{ isset($persona->cumple) ? date('d-m-Y', strtotime($persona->cumple)) : ''   }}">
         </div>
         
-        <button class="btn btn-primary btnGuardarPersona" type="button">Guardar</button>
+        {{-- <button class="btn btn-primary btnGuardarPersona" type="submit">Guardar</button> --}}
+        <button class="btn btn-primary disabled" type="submit">Submit</button>
+        <a href="{{ url('/') }}" class="btn btn-warning ">Cancelar</a>
       </form>
     </div>    
   </div>    
@@ -81,6 +92,8 @@
 @endsection
 
 @section('javascripts')
+<script src="{{URL::asset('bootstrap-validator/js/validator.js') }}"></script>
+
 <script>
 var btnGuardarPersona = $(".btnGuardarPersona");
 var form = $("form");
@@ -99,6 +112,10 @@ var guardar= function(){
     success: function(dataResult)
     {                                           
       console.log(dataResult);
+      if(dataResult.success){
+        //alert("datos actualizados");
+        window.location = "{{ url('/') }}";
+      }
       // if(dataResult){
       //   location.reload();            
       // }
@@ -111,9 +128,23 @@ var guardar= function(){
   });
 }
 
+form.validator().on('submit', function (e) {  
+  if (e.isDefaultPrevented()) {
+    alert("no es valido");
+    // handle the invalid form...
+  } else {
+    alert("guardar");
+    // everything looks good!
+  }
+})
+
 /*Event Handler*/
-btnGuardarPersona.on("click", function(){
-  guardar();
-});
+// btnGuardarPersona.on("click", function(){
+//   form.validator();
+//   //guardar();
+// });
+// form.on("submit", function(e){
+//   e.preventDefault();
+// });
 </script>
 @endsection
